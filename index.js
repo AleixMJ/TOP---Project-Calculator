@@ -3,6 +3,24 @@ let num1;
 let operand;
 let num2; 
 
+function operate(operand, num1, num2) {
+    if (operand="+") {
+        return add(num1,num2);
+    }
+    else if (operand="-") {
+        return substract(num1,num2);
+    }
+    else if (operand="*") {
+        return multiply(num1,num2);
+    }
+    else if (operand="/") {
+        return divide(num1,num2);
+    }
+    else {
+        return "ERROR";
+    }
+}
+
 
 
 function add(num1,num2) {
