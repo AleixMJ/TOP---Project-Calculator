@@ -1,0 +1,14 @@
+#calculator {
+    display: flex;
+    justify-content: center;
+}
+
+.number, .operand {
+    padding: 2px;
+    margin: 2px;
+}
+
+#digits {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+}
