@@ -5,6 +5,7 @@ const clearBtn = document.getElementById("clear");
 const numberBtns = document.querySelectorAll(".number");
 const operandBtns = document.querySelectorAll(".operand");
 const result = document.getElementById("equal");
+const allInputDisplay = document.getElementById("allInput");
 
 
 const MAX_DIGITS = 20;
@@ -20,6 +21,8 @@ display.textContent = currentInput;
 
 clearBtn.addEventListener("click", () => {
     currentInput = "0";
+    allInput = "";
+    allInputDisplay.textContent = "";
     updateDisplay();
 });
 
@@ -32,10 +35,11 @@ numberBtns.forEach(button => {
 
         if (currentInput === "0" && value !== ".") {
             currentInput = value;
-            allInput = value;
+            allInputDisplay.textContent += value;
+            
         } else {
             currentInput += value;
-            allInput += value;
+            allInputDisplay.textContent += value;
         }
 
         updateDisplay();
@@ -50,7 +54,7 @@ operandBtns.forEach(button => {
         }
         operand = button.value;
         currentInput = "0";
-        allInput += ` ${button.value} `;
+        allInputDisplay.textContent += ` ${button.value} `;
     })
 })
 
@@ -76,6 +80,7 @@ function updateDisplay() {
         display.textContent = "ERROR";
     } else {
         display.textContent = currentInput;
+        
     }
 }
 
