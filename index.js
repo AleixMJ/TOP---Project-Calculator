@@ -30,7 +30,7 @@ numberBtns.forEach(button => {
     button.addEventListener("click", () => {
         const value = button.value;
 
-        if ((currentInput === "0" && value !== ".") || operand != undefined) {
+        if (currentInput === "0" && value !== ".") {
             currentInput = value;
             allInput = value;
         } else {
