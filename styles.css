@@ -53,7 +53,7 @@ body {
     
 }
 
-.number, .operand {
+.number, .operand, #equal {
     padding: 0;
     margin: 0;
     width: 100%;

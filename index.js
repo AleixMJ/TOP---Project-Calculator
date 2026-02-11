@@ -3,10 +3,16 @@
 const display = document.getElementById("display");
 const clearBtn = document.getElementById("clear");
 const numberBtns = document.querySelectorAll(".number");
+const operandBtns = document.querySelectorAll(".operand");
+const result = document.getElementById("equal");
 
 
 const MAX_DIGITS = 20;
 let currentInput = "0";
+let num1;
+let num2;
+let operand;
+let allInput = "";   
 
 // Initialise
 display.textContent = currentInput;
@@ -18,16 +24,18 @@ clearBtn.addEventListener("click", () => {
 });
 
 
-// Number buttons
+// Activate buttons
 
 numberBtns.forEach(button => {
     button.addEventListener("click", () => {
         const value = button.value;
 
-        if (currentInput === "0" && value !== ".") {
+        if ((currentInput === "0" && value !== ".") || operand != undefined) {
             currentInput = value;
+            allInput = value;
         } else {
             currentInput += value;
+            allInput += value;
         }
 
         updateDisplay();
@@ -35,11 +43,31 @@ numberBtns.forEach(button => {
 });
 
 
-let BtnPlus = document.getElementById("plus");
-let BtnMinus = document.getElementById("minus");
-let BtnMultiply = document.getElementById("multiply");
-let BtnDivide = document.getElementById("divide");
-let BtnEqual = document.getElementById("equal");
+operandBtns.forEach(button => {
+    button.addEventListener("click", () => {
+        if (num1 == undefined ) {
+            num1 = Number(currentInput);
+        }
+        operand = button.value;
+        currentInput = "0";
+        allInput += ` ${button.value} `;
+    })
+})
+
+
+result.addEventListener("click", () => {
+    num2 = Number(currentInput);
+    if (num1 === undefined || num2 === undefined || operand === undefined) {  
+        return;      
+
+    }
+    currentInput = operate(operand, num1, num2);
+    console.log(num1, operand, num2);
+    console.log(currentInput);
+    updateDisplay();
+    num1 = Number(currentInput);
+    num2 = undefined;
+})
 
 
 
@@ -62,38 +90,20 @@ display.addEventListener("display", () => {
 // Operation functions
 
 function operate(operand, num1, num2) {
-    if (operand="+") {
-        return add(num1,num2);
+    if (operand === "+") {
+        return num1 + num2;
     }
-    else if (operand="-") {
-        return substract(num1,num2);
+    else if (operand === "-") {
+        return num1 - num2;
     }
-    else if (operand="*") {
-        return multiply(num1,num2);
+    else if (operand === "*") {
+        return num1 * num2;
     }
-    else if (operand="/") {
-        return divide(num1,num2);
+    else if (operand === "/") {
+        return num1 / num2;
     }
     else {
         return "ERROR";
     }
-}
-
-
-
-function add(num1,num2) {
-    return num1 + num2;
-}
-
-function substract(num1,num2) {
-    return num1 - num2;
-}
-
-function multiply(num1, num2) {
-    return num1 * num2;
-}
-
-function divide(num1,num2) {
-    return num1 / num2;
 }
 
