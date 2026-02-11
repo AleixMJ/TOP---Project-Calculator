@@ -5,6 +5,13 @@ let num2;
 
 
 let display = document.getElementById("display");
+
+let BtnClear = document.getElementById("clear");
+BtnClear.addEventListener("click", function() {
+    display.textContent = "";
+});
+
+
 let Btn1 = document.getElementById("1");
 Btn1.addEventListener("click", function() {
     display.textContent += "1";
