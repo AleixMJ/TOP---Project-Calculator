@@ -33,7 +33,11 @@ numberBtns.forEach(button => {
     button.addEventListener("click", () => {
         const value = button.value;
 
-        if (currentInput.includes(".") && value === ".") {
+        if (display.textContent === "ERROR") {
+            currentInput = value;
+            allInputDisplay.textContent = value;
+        }
+        else if (currentInput.includes(".") && value === ".") {
             return;
         }
         
@@ -80,20 +84,19 @@ result.addEventListener("click", () => {
 
 
 function updateDisplay() {
-    if (currentInput.length > MAX_DIGITS) {
+
+    if (allInputDisplay.textContent.length > 40) {
+        allInputDisplay.textContent = "TOO MANY OPERATIONS";
         display.textContent = "ERROR";
+    }
+    else if (currentInput.length > MAX_DIGITS) {
+        display.textContent = "ERROR";
+        allInputDisplay.textContent = "TOO MANY DIGITS";
     } else {
         display.textContent = currentInput;
         
     }
 }
-
-
-display.addEventListener("display", () => {
-    if (display.value.length > 20) {
-        display.textContent = "ERROR";
-    }
-})
 
 
 // Operation functions
