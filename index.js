@@ -21,6 +21,7 @@ display.textContent = currentInput;
 
 
 clearBtn.addEventListener("click", () => {
+    justCalculated = false;
     currentInput = "0";
     allInput = "";
     allInputDisplay.textContent = "";
@@ -41,24 +42,31 @@ numberBtns.forEach(button => {
         console.log("pressed number", value);
 
         if (justCalculated) {
+            console.log("checked If of number eventlistener 1");
             currentInput = value;
             justCalculated = false;
+            updateDisplay();
             return
         }
 
         if (display.textContent === "ERROR") {
+            console.log("checked If of number eventlistener 2");
             currentInput = value;
             allInputDisplay.textContent = value;
+
         }
         else if (currentInput.includes(".") && value === ".") {
+            console.log("checked If of number eventlistener 3");
             return;
         }
         
         else if (currentInput === "0") {
+            console.log("checked If of number eventlistener 4");
             currentInput = value;
             allInputDisplay.textContent += value;
             
         } else {
+            console.log("checked If of number eventlistener 5");
             currentInput += value;
             allInputDisplay.textContent += value;
         }
@@ -70,6 +78,7 @@ numberBtns.forEach(button => {
 
 operandBtns.forEach(button => {
     button.addEventListener("click", () => {
+        console.log("button was pressed:", button.value);
         
         if (/[+\-*/]\s*$/.test(allInputDisplay.textContent)) {
             
@@ -124,6 +133,7 @@ function calculateResult() {
 
 function updateDisplay() {
 
+    console.log("update display called");
     if (allInputDisplay.textContent.length > 40) {
         allInputDisplay.textContent = "TOO MANY OPERATIONS";
         display.textContent = "ERROR";
@@ -132,7 +142,7 @@ function updateDisplay() {
         display.textContent = "ERROR";
         allInputDisplay.textContent = "TOO MANY DIGITS";
     } else {
-        display.textContent = currentInput || "0";
+        display.textContent = currentInput;
         
     }
 }
