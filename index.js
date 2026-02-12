@@ -20,6 +20,7 @@ let justCalculated = false;
 display.textContent = currentInput;
 
 
+// Clear button
 clearBtn.addEventListener("click", () => {
     justCalculated = false;
     currentInput = "0";
@@ -30,7 +31,6 @@ clearBtn.addEventListener("click", () => {
     operand = undefined;
     display.textContent = "";
     updateDisplay();
-    console.log("current input after clear: ", currentInput);
 });
 
 
@@ -39,10 +39,8 @@ clearBtn.addEventListener("click", () => {
 numberBtns.forEach(button => {
     button.addEventListener("click", () => {
         const value = button.value;
-        console.log("pressed number", value);
 
         if (justCalculated) {
-            console.log("checked If of number eventlistener 1");
             currentInput = value;
             justCalculated = false;
             allInputDisplay.textContent += " " + value;
@@ -51,23 +49,19 @@ numberBtns.forEach(button => {
         }
 
         if (display.textContent === "ERROR") {
-            console.log("checked If of number eventlistener 2");
             currentInput = value;
             allInputDisplay.textContent = value;
 
         }
         else if (currentInput.includes(".") && value === ".") {
-            console.log("checked If of number eventlistener 3");
             return;
         }
         
         else if (currentInput === "0") {
-            console.log("checked If of number eventlistener 4");
             currentInput = value;
             allInputDisplay.textContent += value;
             
         } else {
-            console.log("checked If of number eventlistener 5");
             currentInput += value;
             allInputDisplay.textContent += value;
         }
@@ -79,10 +73,8 @@ numberBtns.forEach(button => {
 
 operandBtns.forEach(button => {
     button.addEventListener("click", () => {
-        console.log("button was pressed:", button.value);
         
         if (/[+\-*/]\s*$/.test(allInputDisplay.textContent)) {
-            console.log("button if statement 1 completed value: ", button.value);
             allInputDisplay.textContent = allInputDisplay.textContent
                 .replace(/[+\-*/]\s*$/, button.value + " ");
             operand = button.value
@@ -91,18 +83,14 @@ operandBtns.forEach(button => {
         }
         
         if (num1 == undefined ) {
-            console.log("button if statement 2 completed value: ", button.value);
             num1 = Number(currentInput);
         }
 
         if (operand === undefined) {   
-            console.log("button if statement 3 completed value: ", button.value);     
         currentInput = "0";
         
         }
         else {
-            console.log("button if statement 4 completed value: ", button.value);    
-            console.log("current Input before calculation: ", currentInput);
             calculateResult();
                         
         }
@@ -123,9 +111,7 @@ function calculateResult() {
     }
     currentInput = operate(operand, Number(num1), Number(num2));
     currentInput = String(currentInput);
-    console.log("current input after calculation but before update display: ", currentInput);
     updateDisplay();
-    console.log("current input after calculation and after update display: ", currentInput);
     num1 = currentInput;
     operand = undefined;
     num2 = undefined;
@@ -136,7 +122,6 @@ function calculateResult() {
 
 function updateDisplay() {
 
-    console.log("update display called");
     if (allInputDisplay.textContent.length > 40) {
         allInputDisplay.textContent = "TOO MANY OPERATIONS";
         display.textContent = "ERROR";
@@ -151,7 +136,6 @@ function updateDisplay() {
 }
 
 
-// Operation functions
 
 function operate(operand, num1, num2) {
     if (operand === "+") {
