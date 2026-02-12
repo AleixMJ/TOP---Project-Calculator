@@ -45,6 +45,7 @@ numberBtns.forEach(button => {
             console.log("checked If of number eventlistener 1");
             currentInput = value;
             justCalculated = false;
+            allInputDisplay.textContent += " " + value;
             updateDisplay();
             return
         }
@@ -81,7 +82,7 @@ operandBtns.forEach(button => {
         console.log("button was pressed:", button.value);
         
         if (/[+\-*/]\s*$/.test(allInputDisplay.textContent)) {
-            
+            console.log("button if statement 1 completed value: ", button.value);
             allInputDisplay.textContent = allInputDisplay.textContent
                 .replace(/[+\-*/]\s*$/, button.value + " ");
             operand = button.value
@@ -90,14 +91,17 @@ operandBtns.forEach(button => {
         }
         
         if (num1 == undefined ) {
+            console.log("button if statement 2 completed value: ", button.value);
             num1 = Number(currentInput);
         }
 
-        if (operand === undefined) {        
+        if (operand === undefined) {   
+            console.log("button if statement 3 completed value: ", button.value);     
         currentInput = "0";
         
         }
         else {
+            console.log("button if statement 4 completed value: ", button.value);    
             console.log("current Input before calculation: ", currentInput);
             calculateResult();
                         
@@ -119,7 +123,6 @@ function calculateResult() {
     }
     currentInput = operate(operand, Number(num1), Number(num2));
     currentInput = String(currentInput);
-    console.log(num1, operand, num2);
     console.log("current input after calculation but before update display: ", currentInput);
     updateDisplay();
     console.log("current input after calculation and after update display: ", currentInput);
@@ -142,7 +145,7 @@ function updateDisplay() {
         display.textContent = "ERROR";
         allInputDisplay.textContent = "TOO MANY DIGITS";
     } else {
-        display.textContent = currentInput;
+        display.textContent = currentInput || "0";
         
     }
 }
