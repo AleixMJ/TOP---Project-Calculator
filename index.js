@@ -13,7 +13,8 @@ let currentInput = "0";
 let num1;
 let num2;
 let operand;
-let allInput = "";   
+let allInput = "";
+let justCalculated = false;   
 
 // Initialise
 display.textContent = currentInput;
@@ -23,9 +24,9 @@ clearBtn.addEventListener("click", () => {
     currentInput = "0";
     allInput = "";
     allInputDisplay.textContent = "";
-    num1 = null;
-    num2 = null;
-    operand = null;
+    num1 = undefined;
+    num2 = undefined;
+    operand = undefined;
     display.textContent = "";
     updateDisplay();
     console.log("current input after clear: ", currentInput);
@@ -37,6 +38,13 @@ clearBtn.addEventListener("click", () => {
 numberBtns.forEach(button => {
     button.addEventListener("click", () => {
         const value = button.value;
+        console.log("pressed number", value);
+
+        if (justCalculated) {
+            currentInput = value;
+            justCalculated = false;
+            return
+        }
 
         if (display.textContent === "ERROR") {
             currentInput = value;
@@ -81,6 +89,7 @@ operandBtns.forEach(button => {
         
         }
         else {
+            console.log("current Input before calculation: ", currentInput);
             calculateResult();
                         
         }
@@ -94,19 +103,21 @@ result.addEventListener("click", () => {
 });
 
 function calculateResult() {
-    num2 = Number(currentInput);
+    num2 = currentInput;
     if (num1 === undefined || num2 === undefined || operand === undefined) {  
         return;      
 
     }
-    currentInput = operate(operand, num1, num2);
+    currentInput = operate(operand, Number(num1), Number(num2));
     currentInput = String(currentInput);
     console.log(num1, operand, num2);
-    console.log("current input: ", currentInput);
+    console.log("current input after calculation but before update display: ", currentInput);
     updateDisplay();
+    console.log("current input after calculation and after update display: ", currentInput);
     num1 = currentInput;
     operand = undefined;
     num2 = undefined;
+    justCalculated = true;
 };
 
 
@@ -121,7 +132,7 @@ function updateDisplay() {
         display.textContent = "ERROR";
         allInputDisplay.textContent = "TOO MANY DIGITS";
     } else {
-        display.textContent = currentInput;
+        display.textContent = currentInput || "0";
         
     }
 }
