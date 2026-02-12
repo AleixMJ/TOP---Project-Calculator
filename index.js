@@ -23,7 +23,12 @@ clearBtn.addEventListener("click", () => {
     currentInput = "0";
     allInput = "";
     allInputDisplay.textContent = "";
+    num1 = null;
+    num2 = null;
+    operand = null;
+    display.textContent = "";
     updateDisplay();
+    console.log("current input after clear: ", currentInput);
 });
 
 
@@ -95,8 +100,9 @@ function calculateResult() {
 
     }
     currentInput = operate(operand, num1, num2);
+    currentInput = String(currentInput);
     console.log(num1, operand, num2);
-    console.log(currentInput);
+    console.log("current input: ", currentInput);
     updateDisplay();
     num1 = currentInput;
     operand = undefined;
