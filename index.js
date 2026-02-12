@@ -57,17 +57,38 @@ numberBtns.forEach(button => {
 
 operandBtns.forEach(button => {
     button.addEventListener("click", () => {
+        
+        if (/[+\-*/]\s*$/.test(allInputDisplay.textContent)) {
+            
+            allInputDisplay.textContent = allInputDisplay.textContent
+                .replace(/[+\-*/]\s*$/, button.value + " ");
+            operand = button.value
+            updateDisplay();                   
+            return;
+        }
+        
         if (num1 == undefined ) {
             num1 = Number(currentInput);
         }
-        operand = button.value;
+
+        if (operand === undefined) {        
         currentInput = "0";
+        
+        }
+        else {
+            calculateResult();
+                        
+        }
+        operand = button.value
         allInputDisplay.textContent += ` ${button.value} `;
     })
 })
 
-
 result.addEventListener("click", () => {
+    calculateResult();
+});
+
+function calculateResult() {
     num2 = Number(currentInput);
     if (num1 === undefined || num2 === undefined || operand === undefined) {  
         return;      
@@ -77,9 +98,10 @@ result.addEventListener("click", () => {
     console.log(num1, operand, num2);
     console.log(currentInput);
     updateDisplay();
-    num1 = Number(currentInput);
+    num1 = currentInput;
+    operand = undefined;
     num2 = undefined;
-})
+};
 
 
 
