@@ -33,7 +33,11 @@ numberBtns.forEach(button => {
     button.addEventListener("click", () => {
         const value = button.value;
 
-        if (currentInput === "0" && value !== ".") {
+        if (currentInput.includes(".") && value === ".") {
+            return;
+        }
+        
+        else if (currentInput === "0") {
             currentInput = value;
             allInputDisplay.textContent += value;
             
